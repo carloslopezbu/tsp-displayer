@@ -1,0 +1,136 @@
+@font-face {
+    font-family: 'Pretty';
+    src: url(pretty.woff2);
+}
+
+*{
+    font-family: 'Pretty', sans-serif;
+}
+
+.map {
+    width: 80%;
+    height: 80%;
+    background-color: #f0f0f0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    background-image: radial-gradient(circle, #ccc 1px, transparent 1px);
+    background-size: 20px 20px;
+    overflow: hidden;
+}
+
+.graph-node {
+    width: 40px;
+    height: 40px;
+    background-color: #4a90e2;
+    border-radius: 50%;
+    position: absolute;
+    text-align: center;
+    line-height: 40px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.2s;
+}
+
+.graph-node:hover {
+    background-color: #70b8ff;
+    transform: scale(1.1);
+}
+
+.graph-node.clicked {
+    background-color: #ff6347;
+}
+
+.graph-edge {
+    position: absolute;
+    height: 2px;
+    background-color: #4a90e2;
+    transform-origin: 0 50%;
+}
+
+.edge-label {
+    position: absolute;
+    background-color: white;
+    padding: 2px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px;
+    border: 1px solid #4a90e2;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 40px;
+    height: 24px;
+    line-height: normal;
+    outline: none;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+/* Cuando el input está enfocado */
+.edge-label:focus {
+    border-color: #ff6347;
+    box-shadow: 0px 0px 8px rgba(255, 99, 71, 0.6);
+}
+
+
+.map-nav {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.nav-button {
+    background-color: #4a90e2;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.graph-node.chosen {
+    background-color: #ffcc00; /* Amarillo para los nodos candidatos */
+    transition: background-color 0.5s ease-in-out;
+}
+
+.graph-edge.chosen {
+    background-color: #ffcc00;
+    height: 3px;
+    transition: background-color 0.5s ease-in-out;
+}
+
+
+.graph-edge.selected {
+    border-color: #4ed130;
+    box-shadow: 0px 0px 8px rgba(78, 209, 48, 0.6);
+}
+
+.graph-node.selected {
+    background-color: #4ed130; /* Verde para los nodos finales */
+    transition: background-color 0.5s ease-in-out;
+}
+
+.graph-edge.selected {
+    background-color: #4ed130;
+    height: 4px;
+    transition: 0.5s;
+}
+
+.graph-node.error {
+    background-color: #ff0000; /* Rojo para los nodos con error */
+    transition: background-color 0.5s ease-in-out;
+}
+
+.graph-edge.error {
+    background-color: #ff0000; /* Rojo para las aristas con error */
+    height: 4px;
+    transition: background-color 0.5s ease-in-out;
+}

@@ -1,7 +1,7 @@
 
 # TSP Displayer
 
-Este proyecto es una aplicación web para visualizar soluciones del Problema del Viajante (TSP).
+Este proyecto es una aplicación web para visualizar soluciones del Problema del Viajante (TSP) por ahora con un enfoque Greedy.
 
 ## Tecnologías usadas
 

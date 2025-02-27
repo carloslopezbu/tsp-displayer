@@ -35,6 +35,26 @@ function createGraphNode(xPosition, yPosition) {
     return node
 }
 
+function computeEdgePosition(node1, node2){
+
+    const x1 = node1.offsetLeft + node1.offsetWidth / 2
+    const y1 = node1.offsetTop + node1.offsetHeight / 2
+    const x2 = node2.offsetLeft + node2.offsetWidth / 2
+    const y2 = node2.offsetTop + node2.offsetHeight / 2
+
+    const angle = Math.atan2(y2 - y1, x2 - x1)
+    const radius = node1.offsetWidth / 2
+
+    const x1b = x1 + Math.cos(angle) * radius
+    const y1b = y1 + Math.sin(angle) * radius
+    const x2b = x2 - Math.cos(angle) * radius
+    const y2b = y2 - Math.sin(angle) * radius
+
+    const length = Math.hypot(x2b - x1b, y2b - y1b)
+
+    return {x1b, y1b, x2b, y2b, length, angle}
+}
+
 function createGraphEdge(node1, node2) {
     const defaultWeight = 1  
 
@@ -69,21 +89,8 @@ function createGraphEdge(node1, node2) {
         }
     })
 
-    const x1 = node1.offsetLeft + node1.offsetWidth / 2
-    const y1 = node1.offsetTop + node1.offsetHeight / 2
-    const x2 = node2.offsetLeft + node2.offsetWidth / 2
-    const y2 = node2.offsetTop + node2.offsetHeight / 2
-
-    const angle = Math.atan2(y2 - y1, x2 - x1)
-    const radius = node1.offsetWidth / 2
-
-    const x1b = x1 + Math.cos(angle) * radius
-    const y1b = y1 + Math.sin(angle) * radius
-    const x2b = x2 - Math.cos(angle) * radius
-    const y2b = y2 - Math.sin(angle) * radius
-
-    const length = Math.hypot(x2b - x1b, y2b - y1b)
-
+    const {x1b, y1b, x2b, y2b, length, angle} = computeEdgePosition(node1, node2)
+    
     edgeElement.style.width = `${length}px`
     edgeElement.style.transform = `rotate(${angle * (180 / Math.PI)}deg)`
     edgeElement.style.left = `${x1b}px`
@@ -174,8 +181,6 @@ function sleep(ms) {
 }
 
 async function animateGreedy(steps) {
-    console.log("Steps:", steps)
-
     const path = Object.keys(steps)
         .map(key => parseInt(key))
         .filter(num => !isNaN(num))

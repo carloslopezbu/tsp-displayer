@@ -46,7 +46,7 @@ function createGraphEdge(node1, node2) {
     labelElement.type = "number"
     labelElement.value = defaultWeight
     labelElement.min = 1 
-
+    labelElement.dataset.edgeIndex = edges.length
     labelElement.addEventListener("click", (event) => {
         event.stopPropagation()
     })
@@ -54,8 +54,9 @@ function createGraphEdge(node1, node2) {
     labelElement.addEventListener("keydown", (event) => {
         if (event.key === "Enter") {
             event.preventDefault()
-
-            const edge = findEdge(node1.dataset.id, node2.dataset.id)
+            const edgeIndex = parseInt(labelElement.dataset.edgeIndex)
+            const edge = edges[edgeIndex]
+            
             if (edge) {
                 const newValue = parseInt(labelElement.value)
                 if (!isNaN(newValue) && newValue > 0) {
